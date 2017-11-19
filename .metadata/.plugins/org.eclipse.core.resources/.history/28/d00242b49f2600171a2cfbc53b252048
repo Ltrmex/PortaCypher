@@ -1,0 +1,31 @@
+package ie.gmit.sw;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class OutputWriter {
+	public static void writeEncryption(String name, String key, String fileName) {
+		 
+	    BufferedReader br = FileUrlParser.parse(file);
+
+		try{
+			BufferedWriter bw = new BufferedWriter(
+					new FileWriter(fileName));
+			
+			String s = null;
+			
+			while((s = br.readLine()) != null) {
+				String c = Cypher.Encrypt((s.toUpperCase().replaceAll("[^a-zA-Z]+","")), key);
+				
+				bw.write(c + "\n");
+			}//while
+			
+			br.close();
+			bw.close();
+		}catch(IOException e){
+			System.err.println("Input or Output error!");
+		}//catch
+	}// writeEncryption() 
+}

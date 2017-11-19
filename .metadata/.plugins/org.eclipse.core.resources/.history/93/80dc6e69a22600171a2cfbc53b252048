@@ -1,0 +1,33 @@
+package ie.gmit.sw;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class OutputWriter {
+	//This method runs in O(n) time (or "linear time"), where n is the number of items. If the it has 10 items, we 
+	//have to loop 10 times. If it has 1,000 items, we have to loop 1,000 times.
+	public static void writeEncryption(String data, String key, String fileName) {
+		 
+	    BufferedReader br = FileUrlParser.parse(data);
+
+		try{
+			BufferedWriter bw = new BufferedWriter(
+					new FileWriter(fileName));
+			
+			String s = null;
+			
+			while((s = br.readLine()) != null) {	//due to this while loop this method is considered to run in linear time
+				String c = Cypher.Encrypt((s.toUpperCase().replaceAll("[^a-zA-Z]+","")), key);	//only takes alphabet letters
+				
+				bw.write(c + "\n");	//allowed for new line after each line to keep the same layout
+			}//while
+			
+			br.close();
+			bw.close();
+		}catch(IOException e){
+			System.err.println("Input or Output error!");
+		}//catch
+	}// writeEncryption() 
+}
